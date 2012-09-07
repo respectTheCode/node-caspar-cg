@@ -1,0 +1,147 @@
+<!DOCTYPE html>  <html> <head>   <title>index.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               index.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">net</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;net&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">ccg</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="nx">ccg</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">reconnect</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">address</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+  <span class="nx">port</span><span class="o">:</span> <span class="mi">5250</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">client</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">disconnecting</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">readyForNextCommand</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">waitingForDoubleTerminator</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+</pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Queue of commands and callbacks that haven't completed yet</p>             </td>             <td class="code">               <div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">commandQueue</span> <span class="o">=</span> <span class="p">[];</span>
+
+</pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h2>connect</h2>
+
+<p>Connect to Caspar CG</p>
+
+<p><code>ccg.connect(host, port[, cb]);</code></p>
+
+<p>or use <code>ccg.connect();</code> after setting <code>ccg.options</code></p>             </td>             <td class="code">               <div class="highlight"><pre>
+<span class="nx">ccg</span><span class="p">.</span><span class="nx">connect</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">host</span><span class="p">,</span> <span class="nx">port</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">host</span> <span class="o">&amp;&amp;</span> <span class="nx">port</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ccg</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">host</span> <span class="o">=</span> <span class="nx">host</span><span class="p">;</span>
+    <span class="nx">ccg</span><span class="p">.</span><span class="nx">option</span><span class="p">.</span><span class="nx">port</span> <span class="o">=</span> <span class="nx">port</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">port</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">cb</span> <span class="o">=</span> <span class="nx">host</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">disconnecting</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+  <span class="nx">client</span> <span class="o">=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">connect</span><span class="p">({</span><span class="nx">port</span><span class="o">:</span> <span class="nx">ccg</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">port</span><span class="p">,</span> <span class="nx">host</span><span class="o">:</span> <span class="nx">ccg</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">host</span><span class="p">},</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;CCG: Connected to&quot;</span><span class="p">,</span> <span class="nx">ccg</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">ccg</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">port</span><span class="p">);</span>
+    <span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">cb</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nx">onData</span><span class="p">);</span>
+
+  <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;CCG: Discconnected&quot;</span><span class="p">);</span>
+    <span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nx">client</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">disconnecting</span> <span class="o">&amp;&amp;</span> <span class="nx">ccg</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">reconnect</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ccg</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+</pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <h2>disconnect</h2>
+
+<p>Empties command queue and closes connection to Caspar CG</p>             </td>             <td class="code">               <div class="highlight"><pre>
+<span class="nx">ccg</span><span class="p">.</span><span class="nx">disconnect</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">disconnecting</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="nx">commandQueue</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">client</span> <span class="o">&amp;&amp;</span> <span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">client</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+
+</pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h2>sendCommand</h2>
+
+<p>Sends raw command to CasparCG</p>             </td>             <td class="code">               <div class="highlight"><pre>
+<span class="nx">ccg</span><span class="p">.</span><span class="nx">sendCommand</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+</pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">command</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;\r\n&quot;</span><span class="p">)</span> <span class="nx">command</span> <span class="o">+=</span> <span class="s2">&quot;\r\n&quot;</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">readyForNextCommand</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">readyForNextCommand</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nx">client</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">command</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">commandQueue</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span> <span class="o">||</span> <span class="kc">false</span><span class="p">]);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">onData</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">response</span> <span class="o">+=</span> <span class="nx">chunk</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+
+</pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>check for complete response before doing anything</p>             </td>             <td class="code">               <div class="highlight"><pre>
+  <span class="k">if</span> <span class="p">(</span>
+      <span class="p">(</span><span class="o">!</span><span class="nx">waitingForDoubleTerminator</span> <span class="o">&amp;&amp;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;\r\n&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span>
+      <span class="p">(</span><span class="nx">waitingForDoubleTerminator</span> <span class="o">&amp;&amp;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;\r\n\r\n&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span> <span class="p">{</span>
+</pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>remove the terminator</p>             </td>             <td class="code">               <div class="highlight"><pre>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">waitingForDoubleTerminator</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">response</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;\r\n\r\n&quot;</span><span class="p">));</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">response</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;\r\n&quot;</span><span class="p">));</span>
+    <span class="p">}</span>
+
+</pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>get the callback</p>             </td>             <td class="code">               <div class="highlight"><pre>
+    <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">commandQueue</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">cb</span> <span class="o">=</span> <span class="nx">item</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">commandQueue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">client</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">commandQueue</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">readyForNextCommand</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+
+</pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <h2>info</h2>
+
+<p>INFO ([channel:int]{-[layer:int]}|TEMPLATE [filename:string])</p>             </td>             <td class="code">               <div class="highlight"><pre>
+<span class="nx">ccg</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">layer</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+</pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">command</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span><span class="p">;</span>
+  
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">cb</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span><span class="p">(</span><span class="nx">layer</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">cb</span> <span class="o">=</span> <span class="nx">layer</span><span class="p">;</span>
+    <span class="nx">layer</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">cb</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">layer</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span><span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">cb</span> <span class="o">=</span> <span class="nx">channel</span><span class="p">;</span>
+    <span class="nx">layer</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nx">channel</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="nx">command</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">channel</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">layer</span><span class="p">)</span> <span class="nx">command</span> <span class="o">+=</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">layer</span><span class="p">;</span>
+
+  <span class="nx">ccg</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">};</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
