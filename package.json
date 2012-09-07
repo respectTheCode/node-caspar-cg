@@ -9,6 +9,6 @@
 		"url": ""
 	},
 	"dependencies": {
-		"sax": "*"
+		"underscore": "*"
 	}
 }
