@@ -1,4 +1,14 @@
 {
 	"name": "CasparCG",
-	"version": "0.0.1"
+	"description": "Caspar CG to Node interface",
+	"version": "0.0.1",
+	"author": "Kevin Smith (@respectTheCode)",
+	"homepage": "https://github.com/respectTheCode/node-caspar-cg",
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"dependencies": {
+		"sax": "*"
+	}
 }
