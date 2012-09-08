@@ -1,12 +1,44 @@
 <!DOCTYPE html>  <html> <head>   <title>query.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="index.html">                 index.js               </a>                                           <a class="source" href="connection.html">                 connection.js               </a>                                           <a class="source" href="query.html">                 query.js               </a>                                           <a class="source" href="xml2json.html">                 xml2json.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               query.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">ccg</span><span class="p">)</span> <span class="p">{</span>
-</pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h2>ccg.info</h2>
+</pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h2>ccg.getMediaFiles</h2>
+
+<p>Returns info about all available media files</p>
+
+<p><a href="http://casparcg.com/wiki/CasparCG_2.0_AMCP_Protocol#CLS">CLS</a></p>             </td>             <td class="code">               <div class="highlight"><pre>
+  <span class="nx">ccg</span><span class="p">.</span><span class="nx">getMediaFiles</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+</pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    
+    <span class="nx">ccg</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="s2">&quot;CLS&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">out</span> <span class="o">=</span> <span class="p">[];</span>
+
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">files</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
+
+</pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>split file parts and strip quotes</p>             </td>             <td class="code">               <div class="highlight"><pre>
+        <span class="nx">file</span> <span class="o">=</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/[^\s&quot;&#39;]+|\\&quot;([^\\&quot;]*)\\&quot;|\\&#39;([^\\&#39;]*)\\&#39;/g</span><span class="p">);</span>
+        
+        <span class="nx">out</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+          <span class="nx">file</span><span class="o">:</span> <span class="nx">file</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+          <span class="nx">type</span><span class="o">:</span> <span class="nx">file</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+          <span class="nx">length</span><span class="o">:</span> <span class="nx">file</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+          <span class="nx">date</span><span class="o">:</span> <span class="nx">file</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+
+      <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">out</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">};</span>
+
+</pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <hr />
+
+<h2>ccg.info</h2>
 
 <p>Returns info about a server, channel or template</p>
 
 <p><a href="http://casparcg.com/wiki/CasparCG_2.0_AMCP_Protocol#INFO">INFO</a>
 ([channel:int]{-[layer:int]}|TEMPLATE [filename:string])</p>             </td>             <td class="code">               <div class="highlight"><pre>
   <span class="nx">ccg</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">layer</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-</pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
+</pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 
     <span class="kd">var</span> <span class="nx">command</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span><span class="p">;</span>
