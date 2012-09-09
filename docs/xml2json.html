@@ -33,7 +33,7 @@
       <span class="nx">out</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>add the current node to the path</p>             </td>             <td class="code">               <div class="highlight"><pre>
-      <span class="nx">currentPath</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+      <span class="nx">currentPath</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">());</span>
 </pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>set the value for to a new object to hold values when the come</p>             </td>             <td class="code">               <div class="highlight"><pre>
       <span class="nx">setValueForPath</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="nx">currentPath</span><span class="p">,</span> <span class="p">{});</span>
     <span class="p">}</span>
