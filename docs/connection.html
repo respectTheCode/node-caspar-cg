@@ -137,6 +137,7 @@
         <span class="p">}</span>
       <span class="p">}</span>
 
+      <span class="nx">response</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">commandQueue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>if there are queue commands send the next one</p>             </td>             <td class="code">               <div class="highlight"><pre>
         <span class="nx">client</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">commandQueue</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
