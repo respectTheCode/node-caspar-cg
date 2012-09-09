@@ -4,11 +4,13 @@
 <p>Returns info about all available media files</p>
 
 <p><a href="http://casparcg.com/wiki/CasparCG_2.0_AMCP_Protocol#CLS">CLS</a></p>             </td>             <td class="code">               <div class="highlight"><pre>
-  <span class="nx">ccg</span><span class="p">.</span><span class="nx">getMediaFiles</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-</pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="nx">ccg</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getMediaFiles</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
-    <span class="nx">ccg</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="s2">&quot;CLS&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+</pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="s2">&quot;CLS&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">cb</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
         <span class="k">return</span><span class="p">;</span>
@@ -44,11 +46,13 @@
 <p>Returns info about all media files matching filename</p>
 
 <p><a href="http://casparcg.com/wiki/CasparCG_2.0_AMCP_Protocol#CINF">CINF</a></p>             </td>             <td class="code">               <div class="highlight"><pre>
-  <span class="nx">ccg</span><span class="p">.</span><span class="nx">getMediaFileInfo</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-</pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="nx">ccg</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getMediaFileInfo</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
-    <span class="nx">ccg</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="s2">&quot;CINF \&quot;&quot;</span> <span class="o">+</span> <span class="nx">filename</span> <span class="o">+</span> <span class="s2">&quot;\&quot;&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+</pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="s2">&quot;CINF \&quot;&quot;</span> <span class="o">+</span> <span class="nx">filename</span> <span class="o">+</span> <span class="s2">&quot;\&quot;&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">cb</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
         <span class="k">return</span><span class="p">;</span>
@@ -87,9 +91,11 @@
 {folder:string|./}</p>
 
 <p>There seems to be a bug with TLS ignoring the folder</p>             </td>             <td class="code">               <div class="highlight"><pre>
-  <span class="nx">ccg</span><span class="p">.</span><span class="nx">getTemplates</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">folder</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ccg</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getTemplates</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">folder</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
 </pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 
     <span class="kd">var</span> <span class="nx">command</span> <span class="o">=</span> <span class="s2">&quot;TLS&quot;</span><span class="p">;</span>
 
@@ -99,7 +105,7 @@
       <span class="nx">cb</span> <span class="o">=</span> <span class="nx">folder</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="nx">ccg</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="nx">command</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="nx">command</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">cb</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
         <span class="k">return</span><span class="p">;</span>
@@ -132,9 +138,11 @@
 
 <p><a href="http://casparcg.com/wiki/CasparCG_2.0_AMCP_Protocol#INFO">INFO</a>
 ([channel:int]{-[layer:int]}|TEMPLATE [filename:string])</p>             </td>             <td class="code">               <div class="highlight"><pre>
-  <span class="nx">ccg</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">layer</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ccg</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">layer</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
 </pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>check for connection first</p>             </td>             <td class="code">               <div class="highlight"><pre>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ccg</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">connected</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 
     <span class="kd">var</span> <span class="nx">command</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span><span class="p">;</span>
 
@@ -152,7 +160,7 @@
     <span class="k">if</span> <span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="nx">command</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">channel</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">layer</span><span class="p">)</span> <span class="nx">command</span> <span class="o">+=</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">layer</span><span class="p">;</span>
 
-    <span class="nx">ccg</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="nx">command</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sendCommand</span><span class="p">(</span><span class="nx">command</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
 
       <span class="k">if</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>

@@ -6,9 +6,10 @@ For now auto generated docs in the docs folder.
 
 ## Example
 
-  var ccg = require("CasparCG");
+	var CasparCG = require("CasparCG");
 
-	ccg.connect("localhost", 5250, function () {
+	ccg = new CasparCG("localhost", 5250);
+	ccg.connect(function () {
 		ccg.info(function (err, serverInfo) {
 			console.log(serverInfo);
 		});
