@@ -1,8 +1,6 @@
 # CasparCG to Node interface
 
-This project is very early in developement and API will most likely change. I will be using this in a fairly large project so the APIs will stablelize quickly. Once a functional portion of the protocal is implemented I will publish this project to NPM.
-
-For now auto generated docs in the docs folder.
+This project is very early in development and API will most likely change. The requirements of the app I was building this for have changed and for the time being this module is on hold.
 
 ## Example
 
