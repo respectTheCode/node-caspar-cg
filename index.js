@@ -21,3 +21,5 @@ util.inherits(ccg, events.EventEmitter);
 require("./lib/connection")(ccg);
 // query commands
 require("./lib/query")(ccg);
+// query commands
+require("./lib/playout")(ccg);
