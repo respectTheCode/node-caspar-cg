@@ -13,4 +13,10 @@ For now auto generated docs in the docs folder.
 		ccg.info(function (err, serverInfo) {
 			console.log(serverInfo);
 		});
+
+		ccg.play("1-1", "AMB");
+
+		setTimeout(function () {
+			ccg.clear("1");
+		}, 10 * 1000);
 	});
