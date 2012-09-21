@@ -9,6 +9,11 @@
 		"url": ""
 	},
 	"dependencies": {
-		"underscore": "*"
+		"underscore": "*",
+		"sax": "*"
+	},
+	"devDependencies": {
+		"docco": "*",
+		"jake": "*"
 	}
 }
