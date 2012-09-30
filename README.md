@@ -22,5 +22,10 @@ For now docs are in the source only. I will be moving them to github pages at so
 
 		setTimeout(function () {
 			ccg.clear("1");
+			ccg.disconnect();
 		}, 10 * 1000);
+	});
+
+	ccg.on("connected", function () {
+		console.log("Connected");
 	});

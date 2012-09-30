@@ -15,5 +15,10 @@ ccg.connect(function () {
 
 	setTimeout(function () {
 		ccg.clear("1");
+		ccg.disconnect();
 	}, 5 * 1000);
+});
+
+ccg.on("connected", function () {
+	console.log("Connected");
 });
