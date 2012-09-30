@@ -1,6 +1,11 @@
-var CasparCG = require("caspar-cg");
+var CasparCG = require("./");
 
-ccg = new CasparCG("localhost", 5250);
+ccg = new CasparCG({
+	host: "localhost",
+	port: 5250,
+	debug: true
+});
+
 ccg.connect(function () {
 	ccg.info(function (err, serverInfo) {
 		console.log(serverInfo);
@@ -10,5 +15,5 @@ ccg.connect(function () {
 
 	setTimeout(function () {
 		ccg.clear("1");
-	}, 10 * 1000);
+	}, 5 * 1000);
 });
