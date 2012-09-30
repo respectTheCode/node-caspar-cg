@@ -13,7 +13,6 @@
 		"sax": "*"
 	},
 	"devDependencies": {
-		"docco": "*",
 		"jake": "*"
 	}
 }
