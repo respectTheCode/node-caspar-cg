@@ -8,7 +8,7 @@ var ccg = module.exports = function (address, port) {
 	if (typeof(address) == "string") {
 		this.options.address = address;
 	} else if (typeof(address) == "object") {
-		this.options = address;
+		_.extend(this.options, address);
 	}
 
 	if (port) {
