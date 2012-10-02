@@ -2,13 +2,13 @@ var events = require("events");
 var util = require("util");
 var _ = require("underscore");
 
-var ccg = module.exports = function (address, port) {
+var ccg = module.exports = function (host, port) {
 	events.EventEmitter.call(this);
 
 	if (typeof(address) == "string") {
-		this.options.address = address;
-	} else if (typeof(address) == "object") {
-		_.extend(this.options, address);
+		this.options.host = host;
+	} else if (typeof(host) == "object") {
+		_.extend(this.options, host);
 	}
 
 	if (port) {
@@ -20,7 +20,7 @@ util.inherits(ccg, events.EventEmitter);
 
 ccg.prototype.options = {
 	reconnect: true,
-	address: "localhost",
+	host: "localhost",
 	port: 5250,
 	debug: false
 };
