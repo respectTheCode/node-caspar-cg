@@ -31,7 +31,7 @@ ccg.prototype.log = function () {
 	var args = _.values(arguments);
 	args.unshift("CCG:");
 
-	console.log.apply(this, args);
+	console.log.apply(console, args);
 };
 
 // connection management and command queing
