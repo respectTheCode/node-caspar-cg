@@ -7,18 +7,37 @@ ccg = new CasparCG({
 });
 
 ccg.connect(function () {
-	ccg.info(function (err, serverInfo) {
-		console.log(serverInfo);
+	ccg.play("1-1", "AMB");
+
+	ccg.getMediaFiles(function (err, serverInfo) {
+		console.log("getMediaFiles", serverInfo);
 	});
 
-	ccg.play("1-1", "AMB");
+	ccg.getMediaFileInfo("AMB", function (err, serverInfo) {
+		console.log("getMediaFileInfo", serverInfo);
+	});
+
+	ccg.getTemplates(function (err, serverInfo) {
+		console.log("info", serverInfo);
+	});
+
+	ccg.info(function (err, serverInfo) {
+		console.log("info", serverInfo);
+	});
+
+	ccg.info("1", function (err, serverInfo) {
+		console.log("info 1", serverInfo);
+	});
+
+	ccg.info("1-1", function (err, serverInfo) {
+		console.log("info 1-1", serverInfo);
+	});
 
 	setTimeout(function () {
 		ccg.clear("1");
+	}, 1 * 1000);
+
+	setTimeout(function () {
 		ccg.disconnect();
 	}, 5 * 1000);
-});
-
-ccg.on("connected", function () {
-	console.log("Connected");
 });
