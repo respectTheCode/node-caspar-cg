@@ -40,3 +40,5 @@ require("./lib/connection")(ccg);
 require("./lib/query")(ccg);
 // query commands
 require("./lib/playout")(ccg);
+// query data
+require("./lib/data")(ccg);
