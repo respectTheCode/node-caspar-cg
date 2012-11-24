@@ -42,3 +42,5 @@ require("./lib/query")(ccg);
 require("./lib/playout")(ccg);
 // query data
 require("./lib/data")(ccg);
+// query templates
+require("./lib/template")(ccg);
