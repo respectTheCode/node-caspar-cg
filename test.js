@@ -9,12 +9,17 @@ ccg = new CasparCG({
 ccg.connect(function () {
 	ccg.play("1-1", "AMB");
 
+	ccg.listData(function (err, data) {
+		console.log("list", data);
+	});
+
 	ccg.storeData("SomeData", {
 		f0: "FirstName LastName",
-		f1: "Something about FirstName LastName"
+		f1: "Something about FirstName LastName",
+		f2: new Date().toString()
 	}, function (err) {
 		ccg.loadData("SomeData", function (err, data) {
-			console.log(data);
+			console.log("data:", data);
 		});
 	});
 
