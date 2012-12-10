@@ -1,7 +1,7 @@
 {
 	"name": "caspar-cg",
 	"description": "Caspar CG to Node interface",
-	"version": "0.0.5-1",
+	"version": "0.0.5-2",
 	"author": "Kevin Smith (@respectTheCode)",
 	"homepage": "https://github.com/respectTheCode/node-caspar-cg",
 	"repository": {
