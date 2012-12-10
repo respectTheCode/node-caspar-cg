@@ -13,6 +13,7 @@
 		"sax": "*"
 	},
 	"devDependencies": {
-		"jake": "*"
+		"jake": "*",
+		"async": "*"
 	}
 }
