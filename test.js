@@ -8,7 +8,7 @@ ccg = new CasparCG({
 });
 
 ccg.connect(function () {
-	ccg.play("1-1", "AMB");
+	ccg.play("1-1", "tests/test/AMB");
 
 	// ccg.getTemplates(function (err, templates) {
 	// 	async.forEach(templates, function (template, cb) {
