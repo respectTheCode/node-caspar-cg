@@ -5,6 +5,8 @@ var _ = require("underscore");
 var ccg = module.exports = function (host, port) {
 	events.EventEmitter.call(this);
 
+	this.options = _.extend({}, this.options);
+
 	if (typeof(host) == "string") {
 		this.options.host = host;
 	} else if (typeof(host) == "object") {
