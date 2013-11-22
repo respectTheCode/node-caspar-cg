@@ -14,7 +14,6 @@ describe("connection", function () {
 	var connection1;
 
 	beforeEach(function (done) {
-		if (server1) server1.close();
 		server1 = new net.createServer();
 		server1.listen(port);
 
@@ -51,9 +50,6 @@ describe("connection", function () {
 		var connection3;
 
 		beforeEach(function (done) {
-			if (server2) server2.close();
-			if (server3) server3.close();
-
 			server2 = new net.createServer();
 			server2.listen(port);
 
