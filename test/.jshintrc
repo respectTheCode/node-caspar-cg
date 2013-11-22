@@ -1,0 +1,13 @@
+{
+	"globalstrict": true,
+	"unused": false,
+	"node": true,
+	"globals": {
+		"describe": false,
+		"beforeEach": false,
+		"before": false,
+		"inject": false,
+		"after": false,
+		"it": false
+	}
+}
