@@ -1,5 +1,7 @@
 # CasparCG to Node interface
 
+[![Build Status](https://travis-ci.org/respectTheCode/node-caspar-cg.png)](https://travis-ci.org/respectTheCode/node-caspar-cg)
+
 This project is early in development and API may change. The query, playout, data and template commands are mostly finished and I will be adding more as I need them. If you need something that is missing add an issue.
 
 For now docs are in the source only. I will be moving them to github pages at some point.
