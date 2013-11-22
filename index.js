@@ -1,6 +1,9 @@
+"use strict";
+
 var events = require("events");
 var util = require("util");
 var _ = require("underscore");
+var count = 0;
 
 var ccg = module.exports = function (host, port) {
 	events.EventEmitter.call(this);
@@ -16,6 +19,8 @@ var ccg = module.exports = function (host, port) {
 	if (port) {
 		this.options.port = port;
 	}
+
+	this.index = count++;
 };
 
 util.inherits(ccg, events.EventEmitter);
@@ -31,7 +36,7 @@ ccg.prototype.log = function () {
 	if (!this.options.debug) return;
 
 	var args = _.values(arguments);
-	args.unshift("CCG:");
+	args.unshift("CCG" + this.index + ":");
 
 	console.log.apply(console, args);
 };
