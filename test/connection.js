@@ -36,6 +36,7 @@ describe("connection", function () {
 		connection1.on("data", function (data) {
 			assert.equal(data.toString(), "PLAY 1-0 \"AMB\"\r\n", "data is a play command");
 			this.write("202 Play OK\r\n");
+			connection1.removeAllListeners("data");
 		});
 
 		ccg1.play("1-0", "AMB", done);
