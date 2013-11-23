@@ -5,7 +5,7 @@ var assert = require("chai").assert;
 
 var CasparCG = require("../");
 
-var debug = false;
+var debug = true;
 var port = 8000;
 
 describe("connection", function () {
@@ -13,7 +13,7 @@ describe("connection", function () {
 	var server1;
 	var connection1;
 
-	beforeEach(function (done) {
+	before(function (done) {
 		server1 = new net.createServer();
 		server1.listen(port);
 
@@ -49,7 +49,7 @@ describe("connection", function () {
 		var server3;
 		var connection3;
 
-		beforeEach(function (done) {
+		before(function (done) {
 			server2 = new net.createServer();
 			server2.listen(port);
 
