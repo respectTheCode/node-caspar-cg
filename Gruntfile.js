@@ -1,6 +1,6 @@
-module.exports = function (grunt) {
-	"use strict";
+"use strict";
 
+module.exports = function (grunt) {
 	grunt.initConfig({
 		mochaTest: {
 			options: {
@@ -23,6 +23,15 @@ module.exports = function (grunt) {
 				options: {
 					jshintrc: ".jshintrc"
 				}
+			}
+		},
+		jscs: {
+			javascript: {
+				src: [
+					"lib/**/*.js",
+					"index.js",
+					"tests/**/*.js"
+				],
 			}
 		}
 	});

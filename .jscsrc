@@ -1,0 +1,131 @@
+{
+	"requireCurlyBraces": [
+		"else",
+		"for",
+		"while",
+		"do",
+		"try",
+		"catch"
+	],
+	"requireSpaceAfterKeywords": [
+		"if",
+		"else",
+		"for",
+		"while",
+		"do",
+		"switch",
+		"return",
+		"try",
+		"catch"
+	],
+	"requireSpacesInNamedFunctionExpression": {
+		"beforeOpeningCurlyBrace": true
+	},
+	"disallowSpacesInNamedFunctionExpression": {
+		"beforeOpeningRoundBrace": true
+	},
+	"requireSpacesInAnonymousFunctionExpression": {
+		"beforeOpeningRoundBrace": true,
+		"beforeOpeningCurlyBrace": true
+	},
+	"requireSpacesInFunctionExpression": {
+		"beforeOpeningCurlyBrace": true
+	},
+	"disallowSpacesInFunctionDeclaration": {
+		"beforeOpeningRoundBrace": true
+	},
+	"disallowMultipleVarDecl": true,
+	"requireBlocksOnNewline": true,
+	"disallowEmptyBlocks": true,
+	"disallowSpacesInsideObjectBrackets": true,
+	"disallowSpacesInsideArrayBrackets": true,
+	"disallowSpacesInsideParentheses": true,
+	"disallowQuotedKeysInObjects": "allButReserved",
+	"requireDotNotation": true,
+	"disallowSpaceAfterObjectKeys": true,
+	"requireCommaBeforeLineBreak": true,
+	"requireOperatorBeforeLineBreak": [
+		"?",
+		"+",
+		"-",
+		"/",
+		"*",
+		"=",
+		"==",
+		"===",
+		"!=",
+		"!==",
+		">",
+		">=",
+		"<",
+		"<="
+	],
+	"disallowSpaceBeforeBinaryOperators": [","],
+	"requireSpaceBeforeBinaryOperators": [
+		"?",
+		"+",
+		"/",
+		"*",
+		"=",
+		"==",
+		"===",
+		"!=",
+		"!==",
+		">",
+		">=",
+		"<",
+		"<="
+	],
+	"disallowSpaceAfterPrefixUnaryOperators": ["!"],
+	"requireSpaceAfterBinaryOperators": [
+		"?",
+		"+",
+		"/",
+		"*",
+		":",
+		"=",
+		"==",
+		"===",
+		"!=",
+		"!==",
+		">",
+		">=",
+		"<",
+		"<="
+	],
+	"disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "~", "!"],
+	"disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+	"requireSpaceBeforeBinaryOperators": [
+		"+",
+		"-",
+		"/",
+		"*",
+		"=",
+		"==",
+		"===",
+		"!=",
+		"!=="
+	],
+	"requireSpaceAfterBinaryOperators": [
+		"+",
+		"-",
+		"/",
+		"*",
+		"=",
+		"==",
+		"===",
+		"!=",
+		"!=="
+	],
+	"disallowKeywords": ["with"],
+	"disallowMultipleLineStrings": true,
+	"disallowMultipleLineBreaks": true,
+	"validateLineBreaks": "LF",
+	"validateQuoteMarks": "\"",
+	"validateIndentation": "\t",
+	"disallowTrailingWhitespace": true,
+	"disallowKeywordsOnNewLine": ["else", "catch"],
+	"requireLineFeedAtFileEnd": true,
+	"safeContextKeyword": ["self","PushDevice"],
+	"disallowYodaConditions": true
+}
