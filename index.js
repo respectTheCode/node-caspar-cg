@@ -51,3 +51,5 @@ require("./lib/playout")(ccg);
 require("./lib/data")(ccg);
 // query templates
 require("./lib/template")(ccg);
+// mixer commands
+require("./lib/mixer")(ccg);
