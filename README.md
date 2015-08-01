@@ -38,11 +38,18 @@ For now docs are in the source only. I will be moving them to github pages at so
 		console.log("Connected");
 	});
 
-## Breaking Changelog
+## Changelog
 
-### v0.0.5-5
+### v0.0.8
 
-Socket errors are now emitted as `connectionError` instead of `error`.
+* Adds `resume`
+* Adds `swap`
+* Adds `print`
+* Adds `logLevel`
+
+### v0.0.7
+
+* Adds `mixerFill` to move and resize layers
 
 ### v0.0.6
 
@@ -52,3 +59,7 @@ Socket errors are now emitted as `connectionError` instead of `error`.
 * Numbers and Booleans are parsed (all values were strings before)
 * Parameters with `-` and `_` are replaced with cammel case
 * Inconsistent parameters are renamed
+
+### v0.0.5-5
+
+Socket errors are now emitted as `connectionError` instead of `error`.
