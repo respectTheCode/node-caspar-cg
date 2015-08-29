@@ -40,6 +40,10 @@ For now docs are in the source only. I will be moving them to github pages at so
 
 ## Changelog
 
+### v0.0.9
+
+* Fix `info` parsing error when parsing `image-producer` data
+
 ### v0.0.8
 
 * Adds `resume`
