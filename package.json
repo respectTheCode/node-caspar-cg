@@ -1,7 +1,7 @@
 {
 	"name": "caspar-cg",
 	"description": "Caspar CG to Node interface",
-	"version": "0.0.9",
+	"version": "0.1.0",
 	"author": "Kevin Smith (@respectTheCode)",
 	"homepage": "https://github.com/respectTheCode/node-caspar-cg",
 	"repository": {
@@ -26,5 +26,8 @@
 		"load-grunt-tasks": "~0.2.0",
 		"async": "~0.2.9",
 		"chai": "~1.8.1"
+	},
+	"engines" : {
+		"node" : ">=4.0.0"
 	}
 }
