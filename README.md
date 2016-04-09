@@ -4,13 +4,7 @@
 
 This project is early in development and API may change. The query, playout, data and template commands are mostly finished and I will be adding more as I need them. If you need something that is missing add an issue.
 
-For now docs are in the source only. I will be moving them to github pages at some point.
-
-## Road Map
-	0.1 - Implement the entire AMCP Protocol
-	0.2 - First stable release
-	0.3 - Add events for all commands and channel/layer status by polling
-	0.4 - Stable release
+For now docs are in the source only.
 
 ## Install
 
@@ -39,6 +33,11 @@ For now docs are in the source only. I will be moving them to github pages at so
 	});
 
 ## Changelog
+
+### v0.1.0
+
+* Fix `disconnected` event on node v4+
+* Requires node v4+
 
 ### v0.0.9
 
