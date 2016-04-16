@@ -3,6 +3,7 @@
 	"description": "Caspar CG to Node interface",
 	"version": "0.1.0",
 	"author": "Kevin Smith (@respectTheCode)",
+	"license": "MIT",
 	"homepage": "https://github.com/respectTheCode/node-caspar-cg",
 	"repository": {
 		"type": "git",
