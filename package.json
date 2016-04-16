@@ -12,6 +12,7 @@
 		"test": "grunt mochaTest"
 	},
 	"dependencies": {
+		"node-osc": "git+ssh://git@github.com/respectTheCode/node-osc.git",
 		"underscore": "~1.8.3",
 		"sax": "~1.1.1"
 	},

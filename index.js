@@ -20,6 +20,9 @@ var ccg = module.exports = function (host, port) {
 		this.options.port = port;
 	}
 
+	// osc server
+	require("./lib/osc")(this);
+
 	this.index = count++;
 };
 
@@ -29,6 +32,9 @@ ccg.prototype.options = {
 	reconnect: true,
 	host: "localhost",
 	port: 5250,
+	osc: false,
+	oscPort: 6250,
+	oscThrottle: 250,
 	debug: false
 };
 
