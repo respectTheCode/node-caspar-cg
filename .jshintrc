@@ -1,5 +1,6 @@
 {
 	"node": true,
 	"globalstrict": true,
-	"unused": false
+	"unused": false,
+	"esnext": true
 }
