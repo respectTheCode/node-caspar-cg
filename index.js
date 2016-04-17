@@ -35,6 +35,7 @@ ccg.prototype.options = {
 	osc: false,
 	oscPort: 6250,
 	oscThrottle: 250,
+	oscTimeout: 1000,
 	debug: false
 };
 
