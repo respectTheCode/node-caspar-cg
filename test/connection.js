@@ -42,6 +42,18 @@ describe("connection", function () {
 		ccg1.play("1-0", "AMB", done);
 	});
 
+	it("should set error for callback when receiving an error status", function (done) {
+		connection1.on("data", function (data) {
+			this.write("501 PLAY FAILED\r\n");
+			connection1.removeAllListeners("data");
+		});
+
+		ccg1.play("1-0", "nonexistingfile", function(err) {
+			assert(err);
+			done();
+		})
+	});
+
 	describe("with 2 connections", function () {
 		var ccg2;
 		var server2;
