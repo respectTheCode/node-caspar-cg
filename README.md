@@ -31,6 +31,49 @@ For now docs are in the source only.
 	ccg.on("connected", function () {
 		console.log("Connected");
 	});
+	
+### Usage with Express and to render html5 templates
+This code example requires *express*. The templates are rendered by using *CALL* and stringifying your json payload. The template on your caspar server can cast that string back to json.
+
+```javascript
+	var express = require("express");
+	var app = express();
+	var router = express.Router();
+	var path = __dirname + '/app/'; // source code directory
+	var bodyParser = require("body-parser");
+
+	var CasparCG = require("caspar-cg");
+	ccg = new CasparCG("your-casparcg-ip-address", 5250);
+
+	router.post("/caspar/:template",function(req,res){ // 
+	  ccg.connect(function () {
+	    var addCommand = 'CG 1-99 ADD 0 your-template-dir/'+req.params.template+' 1';
+	    var updateCommand = 'CALL 1-99 UPDATE "'+JSON.stringify(req.body)+'"';
+	    ccg.sendCommand(addCommand);
+	    ccg.sendCommand(updateCommand, function(){
+	      console.log('Command was sent')
+	    })
+	  });
+
+	  res.send('Command was sent');
+	});
+
+	app.use(bodyParser.urlencoded({ extended: false }));
+	app.use(bodyParser.json());
+
+	app.use(express.static('node_modules'))
+	app.use(express.static('app'))
+
+	app.use("/",router);
+
+	app.use("*",function(req,res){
+	  res.sendFile(path + "404.html");
+	});
+
+	app.listen(3000,function(){
+	  console.log("Live at Port 3000");
+	});
+```
 
 ## Changelog
 
