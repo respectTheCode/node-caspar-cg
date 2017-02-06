@@ -14,21 +14,29 @@ For now docs are in the source only.
 
 	var CasparCG = require("caspar-cg");
 
-	ccg = new CasparCG("localhost", 5250);
-	ccg.connect(function () {
-		ccg.info(function (err, serverInfo) {
+	ccg = new CasparCG({
+		host: "localhost",
+		port: 5250,
+		debug: true,
+		osc: true, // osc status updates are opt in
+		oscThrottle: 250 // throttles status updates in ms
+	});
+
+	ccg.connect(() => {
+		ccg.info((err, serverInfo) => {
 			console.log(serverInfo);
 		});
 
 		ccg.play("1-1", "AMB");
+		ccg.loadTemplate("1-20", "NTSC-TEST-60", true);
 
-		setTimeout(function () {
+		setTimeout(() => {
 			ccg.clear("1");
 			ccg.disconnect();
-		}, 10 * 1000);
+		}, 60 * 1000);
 	});
 
-	ccg.on("connected", function () {
+	ccg.on("connected", () => {
 		console.log("Connected");
 	});
 	
@@ -75,7 +83,16 @@ This code example requires *express*. The templates are rendered by using *CALL*
 	});
 ```
 
-## Changelog
+	// must opt in to osc
+	ccg.on("status", status => {
+		console.log(JSON.stringify(status));
+	});
+
+## Change log
+
+###v0.1.1
+
+* Adds OSC Status updates
 
 ### v0.1.0
 
